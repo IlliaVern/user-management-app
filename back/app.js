@@ -9,9 +9,7 @@ const usersRouter = require('./routes/users');
 
 const app = express();
 
-const url = "mongodb+srv://management-app-user:BUQtHjZdGCVSrit3@user-management-crud-gqu4p.mongodb.net/usersDB?retryWrites=true&w=majority"
-// const url = process.env.MONGODB_URI   // показал доступ к базе так 
-// //  как иначе лоокально подключаться не будет к базе если сказать репозиторий с GitHub
+const url = process.env.MONGODB_URI
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
 
 const bodyParser = require('body-parser')
