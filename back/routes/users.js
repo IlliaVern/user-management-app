@@ -68,7 +68,7 @@ router.put('/users/:id', (req, res, next) =>
 
 router.delete('/users', (req, res, next) => 
     User.findByIdAndDelete({_id: req.body.id})
-        .then(res.json({success: true}))
+        .then(res.status(200).json({success: true}))
         .catch(err => {
             res.status(500).json({success: false, error: err})
         })
