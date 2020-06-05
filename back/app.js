@@ -1,27 +1,18 @@
 const express = require('express');
-const path = require('path');
-const cookieParser = require('cookie-parser');
-const logger = require('morgan');
+const app = express();
+const morgan = require('morgan')
+const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 require('dotenv').config()
 
 const usersRouter = require('./routes/users');
 
-const app = express();
-
 const url = process.env.MONGODB_URI
-mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
+mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
 
-const bodyParser = require('body-parser')
-const urlencodedParser = bodyParser.urlencoded({extended: false})
-
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(urlencodedParser)
-
+app.use(morgan('dev'))
+app.use(bodyParser.urlencoded({extended: false}))
+app.use(bodyParser.json())
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
